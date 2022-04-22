@@ -1,5 +1,5 @@
 package com.toclass.myapp.achievement.dao;
 
-public interface achievementDao {
+public interface AchievementDao {
 
 }
