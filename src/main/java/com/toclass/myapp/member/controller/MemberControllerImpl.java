@@ -175,6 +175,7 @@ public class MemberControllerImpl implements MemberController {
 		
 	}
 
+	// 깃허브 테스트
 	
 	
 }
