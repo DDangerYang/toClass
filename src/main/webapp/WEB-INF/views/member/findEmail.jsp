@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 찾기 페이지(/member/findID.jsp)</title>
+<title>계정 찾기 페이지(/member/findEmail.jsp)</title>
 </head>
 <body>
-아이디 찾기
+계정 찾기
 </body>
 </html>

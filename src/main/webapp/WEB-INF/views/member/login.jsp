@@ -16,18 +16,18 @@
 <form name="frmLogin" method="post" action="${contextPath}/member/login.do" encType="utf-8">
 	<fieldset>
 	<legend>로그인</legend>
-		ID : <input type="text" name="id""/> 
-		PW : <input type="password" name="pw"/>
+		Email : <input type="text" name="member_email"/> 
+		PW : <input type="password" name="member_pw"/>
 		<input type="submit" value="로그인"/>
 	</fieldset>
 
 	<c:if test="${result=='loginFailed'}">
-		<h4>로그인 실패 : 아이디 및 비밀번호가 일치하지 않습니다.</h4>
+		<h4>로그인 실패 : 이메일주소 및 비밀번호가 일치하지 않습니다.</h4>
 	</c:if>	
 	
-<a href="${contextPath}/member/findIdForm">아이디 찾기</a>
-<a href="${contextPath}/member/findPwForm">비밀번호 찾기</a>
-<a href="${contextPath}/member/registerForm/0">회원가입</a>
+<a href="${contextPath}/member/findEmail">계정 찾기</a>
+<a href="${contextPath}/member/findPw">비밀번호 찾기</a>
+<a href="${contextPath}/member/register_0">회원가입</a>
 	
 </form>
 

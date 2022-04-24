@@ -1,4 +1,4 @@
-package com.toclass.myapp.member.vo;
+package com.bbt.toclass.member.vo;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

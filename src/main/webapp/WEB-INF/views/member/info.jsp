@@ -4,23 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>메인 페이지</title>
+<title>내 정보</title>
 </head>
 <body>
-<h3>${member.name}님 환영합니다!</h3>
+<h3>${member.member_name}님의 정보</h3>
 
-<p> 아이디 : ${member.id}</p>
-<p> 비밀번호 : ${member.pw}</p>
-<p> 이름 : ${member.name}</p>
-<p> 핸드폰 : ${member.phone}</p>
-<p> 이메일 : ${member.email}</p>
-<p> 가입일 : ${member.joinDate}</p>
-<p> 회원유형 : ${member.type}</p>
-<p> 학교ID : ${member.schoolId}</p>
-<p> 학급ID : ${member.classId}</p>
-<p> 과목코드 : ${member.subjectNo}</p>
-
-
+<p> 식별번호 : ${member.member_id}</p>
+<p> 이메일 : ${member.member_email}</p>
+<p> 비밀번호 : ${member.member_pw}</p>
+<p> 이름 : ${member.member_name}</p>
+<p> 핸드폰 : ${member.member_phone}</p>
+<p> 회원유형 : ${member.member_type}</p>
+<p> 등록일 : ${member.member_regdate}</p>
+<p> 수정일 : ${member.member_moddate}</p>
 
 </body>
 </html>

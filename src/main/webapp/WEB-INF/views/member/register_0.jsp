@@ -16,9 +16,9 @@
 
 <body>
 
-<a href="${contextPath}/member/registerForm/1?type=teacher ">교사</a>
+<a href="${contextPath}/member/register_1?member_type=교사">교사</a>
 <br>
-<a href="${contextPath}/member/registerForm/1?type=student ">학생</a>
+<a href="${contextPath}/member/register_1?member_type=학생">학생</a>
 
 
 
