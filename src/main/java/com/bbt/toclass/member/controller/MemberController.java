@@ -38,6 +38,7 @@ public interface MemberController {
 	ModelAndView checkEmailDuplicateDo(@RequestBody @ModelAttribute MemberVO member) throws Exception;	
 	ModelAndView registerDo(@ModelAttribute MemberVO member, HttpServletRequest request, HttpServletResponse response) throws Exception;
 	
+	// 깃허브 연동 테스트
 	
 	
 }
