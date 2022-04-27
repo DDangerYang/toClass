@@ -16,6 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.bbt.toclass.attendance.service.AttendanceService;
+import com.bbt.toclass.attendance.vo.AttendanceVO;
+import com.bbt.toclass.member.vo.MemberVO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,53 +26,44 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+
+
+
 @Controller("attendanceController")
 @RequestMapping("/attendance/*")
 public class AttendanceControllerImpl implements AttendanceController {
 	private static final Logger logger = LoggerFactory.getLogger(AttendanceController.class);
 	
+	@Autowired
+	private AttendanceService attendanceService;
+	@Autowired
+	private AttendanceVO attendanceVO;
 	
-	//출석 체크 페이지
+	
+	//異쒖꽍 泥댄겕 �럹�씠吏�
 	@RequestMapping(value = "/attendance_teacher", method = RequestMethod.GET)
-	public String teacherPage(Model model, HttpServletRequest request, HttpServletResponse response) {
-		logger.info("get/attendance/check");
-//		String monday = startWeek();
-//		System.out.println(monday);
-//		String friday = endWeek();
-//		System.out.println(friday);
+	public String teacherAttendPage(Model model, MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		logger.info("출석 정보 가져오기");
+
 		ArrayList<String> week = WeekDay();
-		System.out.println(week);
+		request.setAttribute("week", week.get(0));
+		request.setAttribute("week1", week.get(1));
+		request.setAttribute("week2", week.get(2));
+		request.setAttribute("week3", week.get(3));
+		request.setAttribute("week4", week.get(4));
+		//model.addAttribute("attendList",attendanceService.attendList(memberVO));
 		
 		return "attendance/attendance_teacher";
 	}
 	
 	
-	private String startWeek() {			
-		//현재 날짜를 기준으로 월요일 날짜 알려주는 함수		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
-		//String time = sdf.format(System.currentTimeMillis());
-		//System.out.println(time);
-		//Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		//cal.setTime(date);
-		cal.add(Calendar.DATE, 2- cal.get(Calendar.DAY_OF_WEEK));
-		return sdf.format(cal.getTime());
-	}
-	
-	private String endWeek() {
-		//현재 날짜를 기준으로 금요일 날짜 알려주는 함수
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
-		//String time = sdf.format(System.currentTimeMillis());
-		//System.out.println(time);
-		//Date date = new Date();
-		Calendar cal = Calendar.getInstance();
-		//cal.setTime(date);
-		cal.add(Calendar.DATE, 6- cal.get(Calendar.DAY_OF_WEEK));
-		return sdf.format(cal.getTime());
 
-	}
 	
+	//오늘 날짜를 기준으로 월~금의 날짜 가져와서 arraylist에 값 넣기 
 	private ArrayList<String> WeekDay() {
 		
 		//오늘날짜
@@ -80,14 +74,54 @@ public class AttendanceControllerImpl implements AttendanceController {
 		ArrayList<String> day = new ArrayList<String>();
 		for(int i=2;i<7;i++) {
 			cal.add(Calendar.DATE, i- cal.get(Calendar.DAY_OF_WEEK));
-			String a_day = sdf.format(cal.getTime());
-			day.add(a_day);
+			String w_day = sdf.format(cal.getTime());
+			day.add(w_day);
 			//cal.add(Calendar.DATE, 6- cal.get(Calendar.DAY_OF_WEEK));
 			//return sdf.format(cal.getTime());			
 		}
 		System.out.println(day);
+		System.out.println(day.get(4));
 		return day;
 
 	}
 	
+	
+	
 }
+
+
+
+
+
+
+//String monday = startWeek();
+//System.out.println(monday);
+//String friday = endWeek();
+//System.out.println(friday);
+
+
+//private String startWeek() {			
+////�쁽�옱 �궇吏쒕�� 湲곗��쑝濡� �썡�슂�씪 �궇吏� �븣�젮二쇰뒗 �븿�닔		
+//SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
+////String time = sdf.format(System.currentTimeMillis());
+////System.out.println(time);
+////Date date = new Date();
+//Calendar cal = Calendar.getInstance();
+////cal.setTime(date);
+//cal.add(Calendar.DATE, 2- cal.get(Calendar.DAY_OF_WEEK));
+//return sdf.format(cal.getTime());
+//}
+//
+//private String endWeek() {
+////�쁽�옱 �궇吏쒕�� 湲곗��쑝濡� 湲덉슂�씪 �궇吏� �븣�젮二쇰뒗 �븿�닔
+//
+//SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
+////String time = sdf.format(System.currentTimeMillis());
+////System.out.println(time);
+////Date date = new Date();
+//Calendar cal = Calendar.getInstance();
+////cal.setTime(date);
+//cal.add(Calendar.DATE, 6- cal.get(Calendar.DAY_OF_WEEK));
+//return sdf.format(cal.getTime());
+//
+//}
