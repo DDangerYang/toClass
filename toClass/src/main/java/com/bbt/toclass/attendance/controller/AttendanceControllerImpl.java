@@ -1,12 +1,15 @@
 package com.bbt.toclass.attendance.controller;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,10 +27,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-
-
-
 
 @Controller("attendanceController")
 @RequestMapping("/attendance/*")
@@ -38,17 +39,17 @@ public class AttendanceControllerImpl implements AttendanceController {
 	private AttendanceService attendanceService;
 	@Autowired
 	private AttendanceVO attendanceVO;
+	@Autowired
+	private MemberVO memberVO;
 	
-	
-	//異쒖꽍 泥댄겕 �럹�씠吏�
+	//출석페이지 
 	@RequestMapping(value = "/attendance_teacher", method = RequestMethod.GET)
-	public String teacherAttendPage(Model model, MemberVO memberVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String teacherAttendPage(Model model, MemberVO memberVO, AttendanceVO attendanceVO, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
-		logger.info("출석 정보 가져오기");
-
+		logger.info("주간 날짜 가져오기");
 		ArrayList<String> week = WeekDay();
 		request.setAttribute("week", week.get(0));
 		request.setAttribute("week1", week.get(1));
@@ -57,11 +58,18 @@ public class AttendanceControllerImpl implements AttendanceController {
 		request.setAttribute("week4", week.get(4));
 		//model.addAttribute("attendList",attendanceService.attendList(memberVO));
 		
+		logger.info("오늘날짜 가져오기");
+		String t_day = toDay();
+		request.setAttribute("t_day", t_day);
+		
+//		logger.info("출석 정보 가져오기");
+//		List<AttendanceVO> attendList = attendanceService.attendList(memberVO);
+//		model.addAttribute("attendList",attendList);
+		
 		return "attendance/attendance_teacher";
 	}
 	
 	
-
 	
 	//오늘 날짜를 기준으로 월~금의 날짜 가져와서 arraylist에 값 넣기 
 	private ArrayList<String> WeekDay() {
@@ -80,12 +88,18 @@ public class AttendanceControllerImpl implements AttendanceController {
 			//return sdf.format(cal.getTime());			
 		}
 		System.out.println(day);
-		System.out.println(day.get(4));
 		return day;
 
 	}
 	
-	
+	//오늘 날짜 가져오기
+			private String toDay() {
+				LocalDate now = LocalDate.now();
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M월 d일 (E)");
+				String formatedNow = now.format(formatter);
+				System.out.println(formatedNow);
+				return formatedNow;
+			}
 	
 }
 
@@ -94,34 +108,8 @@ public class AttendanceControllerImpl implements AttendanceController {
 
 
 
-//String monday = startWeek();
-//System.out.println(monday);
-//String friday = endWeek();
-//System.out.println(friday);
 
 
-//private String startWeek() {			
-////�쁽�옱 �궇吏쒕�� 湲곗��쑝濡� �썡�슂�씪 �궇吏� �븣�젮二쇰뒗 �븿�닔		
-//SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
-////String time = sdf.format(System.currentTimeMillis());
-////System.out.println(time);
-////Date date = new Date();
-//Calendar cal = Calendar.getInstance();
-////cal.setTime(date);
-//cal.add(Calendar.DATE, 2- cal.get(Calendar.DAY_OF_WEEK));
-//return sdf.format(cal.getTime());
-//}
-//
-//private String endWeek() {
-////�쁽�옱 �궇吏쒕�� 湲곗��쑝濡� 湲덉슂�씪 �궇吏� �븣�젮二쇰뒗 �븿�닔
-//
-//SimpleDateFormat sdf = new SimpleDateFormat("MM.dd",Locale.KOREAN);
-////String time = sdf.format(System.currentTimeMillis());
-////System.out.println(time);
-////Date date = new Date();
-//Calendar cal = Calendar.getInstance();
-////cal.setTime(date);
-//cal.add(Calendar.DATE, 6- cal.get(Calendar.DAY_OF_WEEK));
-//return sdf.format(cal.getTime());
-//
-//}
+
+
+
